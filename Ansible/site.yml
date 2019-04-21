@@ -1,5 +1,5 @@
 ---
 - hosts: all
   tasks:
-    - name: PING Test
-      ping:
+    - name: Check facts
+      debug: var=ansible_facts
