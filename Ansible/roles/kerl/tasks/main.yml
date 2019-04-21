@@ -1,0 +1,7 @@
+---
+- name: Download kerl script
+  get_url:
+    url: "{{ kerl.url }}"
+    dest: "{{ kerl.dest }}"
+    mode: a+x
+    force: yes

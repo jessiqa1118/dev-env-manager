@@ -1,0 +1,4 @@
+---
+kerl:
+  url: https://raw.githubusercontent.com/kerl/kerl/master/kerl
+  dest: /usr/bin
