@@ -1,5 +1,10 @@
 ---
 - hosts: all
-  tasks:
+  user: root
+  pre_tasks:
     - name: Check facts
-      debug: var=ansible_facts
+      debug:
+        var: ansible_facts
+
+  roles:
+    - kerl
