@@ -1,0 +1,19 @@
+---
+- block:
+    - name: Import GPG key
+      shell: rpm --import "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+
+    - name: Add repository
+      get_url:
+        url: https://download.mono-project.com/repo/centos7-stable.repo
+        dest: /etc/yum.repos.d/mono-centos7-stable.repo
+        force: yes
+
+    - name: Install mono-devel
+      yum:
+        name: mono-devel
+        state: latest
+
+  when:
+    - ansible_facts.distribution == "RedHat"
+    - ansible_facts.distribution_major_version == "7"
