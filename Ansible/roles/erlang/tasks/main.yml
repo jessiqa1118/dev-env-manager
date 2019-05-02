@@ -1,0 +1,33 @@
+---
+- name: Check built version
+  shell: kerl list builds | grep "{{ erlang.version }}"
+  register: erlang_tmp
+  failed_when: erlang_tmp.rc not in [0,1]
+  changed_when: false
+  
+- name: Build Erlang
+  shell: kerl build "{{ erlang.version }}" "{{ erlang.version }}"
+  when: not erlang_tmp.stdout
+
+- name: Check installed version
+  shell: kerl list installations | grep "{{ erlang.version }}"
+  register: erlang_tmp
+  failed_when: erlang_tmp.rc not in [0,1]
+  changed_when: false
+  
+- name: Install Erlang
+  shell: kerl install "{{ erlang.version }}" "{{ erlang.dir }}"/"{{ erlang.version }}"
+  when: not erlang_tmp.stdout
+
+- name: Check activation version in .bash_profile
+  shell: cat ~/.bash_profile | grep "{{ erlang.dir }}"/"{{ erlang.version }}"/activate
+  register: erlang_tmp
+  failed_when: erlang_tmp.rc not in [0,1]
+  changed_when: false
+
+- name: Activate Erlang in .bash_profile
+  lineinfile:
+    path: ~/.bash_profile
+    line: . {{ erlang.dir }}/{{ erlang.version }}/activate
+  when: not erlang_tmp.stdout
+

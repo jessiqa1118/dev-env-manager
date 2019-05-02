@@ -5,3 +5,8 @@
     - package
     - kerl
     - mono
+
+- hosts: all
+  user: jscmla1118
+  roles:
+    - erlang
