@@ -1,2 +1,3 @@
 # Inventorie
 Ansible/inventories/*
+Ansible/host_vars/*
